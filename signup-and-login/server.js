@@ -16,11 +16,15 @@ const userSchema  = {
     passwort: String
 } 
 
-//Routes
-
-
 //data model
 const User = mongoose.model("User", userSchema);
+
+//Routes
+app.get('/users', (req, res) => {
+    User.find()
+    .then(items => res.json(items))
+    .catch(err => res.status(400).json("Error: " + err));
+});
 
 app.listen(port, function(){
     console.log("Server is running");
