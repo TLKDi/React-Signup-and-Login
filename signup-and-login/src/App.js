@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import axios from 'axios';
 import './App.css';
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
       email: user.email,
       passwort: user.passwort,
     }
+    axios.post('/newUser',newUser);
   }
 
   return (
