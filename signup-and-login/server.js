@@ -7,10 +7,12 @@ const port = 3001;
 //config
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+//app.use(express.urlencoded({extended: false}));
 
 //db connection
-mongoose.connect('mongodb+srv://tarik-admin:aEdumaztV1CazT1O@cluster0.qqzjw.mongodb.net/usersDB?retryWrites=true&w=majority');
+mongoose.connect("mongodb+srv://tarik-admin:aEdumaztV1CazT1O@cluster0.qqzjw.mongodb.net/usersDB?retryWrites=true&w=majority")
+.then(console.log("DB connected"))
+.catch(err => console.log(err));
 
 //data schema
 const userSchema  = {
@@ -33,11 +35,11 @@ app.get('/users', (req, res) => {
 
 app.post('/newUser', (req,res) => {
     const newUser = new User({
-        vorname : res.body.vorname, 
-        nachname: res.body.nachname, 
-        alter: res.body.alter, 
-        email: res.body.email, 
-        passwort: res.body.passwort
+        vorname : req.body.vorname, 
+        nachname: req.body.nachname, 
+        alter: req.body.alter, 
+        email: req.body.email, 
+        passwort: req.body.passwort
     });
     newUser.save()
     .then((item) => console.log(item))
