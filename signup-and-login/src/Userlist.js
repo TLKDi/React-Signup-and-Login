@@ -25,6 +25,11 @@ function Userlist() {
     .catch((err) => console.log(err))
   }, [users]);
 
+  function deleteUser(id){
+    axios.delete("/delete/" + id);
+    alert('User deleted!');
+    console.log(`User with id ${id} deleted.`);
+  }
 
     return (
         <div>
@@ -35,6 +40,8 @@ function Userlist() {
                 <p>Alter:{user.alter}</p>
                 <p>E-mail:{user.email}</p>
                 <p>Passwort:{user.passwort}</p>
+                <button onClick = {() => deleteUser(user._id)}>DELETE</button>
+                <button>UPDATE</button>
             </div>
             )}
         </div>

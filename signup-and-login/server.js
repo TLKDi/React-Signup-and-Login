@@ -47,6 +47,17 @@ app.post('/newUser', (req,res) => {
 
 });
 
+app.delete('/delete/:id', (req,res) => {
+    const id = req.params.id;
+    User.findByIdAndDelete({_id: id}, (req, res, err) => {
+        if(!err){
+            console.log("User deleted!");
+        }else{
+            console.log(err);
+        }
+    } );
+})
+
 app.listen(port, function(){
     console.log("Server is running");
 });
