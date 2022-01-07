@@ -7,8 +7,10 @@ import {Route, Switch} from 'react-router-dom';
 function App() {
   return (
     <div className="App">
-      <Signup/>
-      <Userlist/>
+      <Switch>
+        <Route path="/" exact component={Signup}/>
+        <Route path="/users" component={Userlist}/>
+      </Switch>
     </div>
   );
 }
