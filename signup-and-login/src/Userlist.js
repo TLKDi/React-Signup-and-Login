@@ -12,9 +12,7 @@ function Userlist({user, setUser, users, setUsers}) {
     email:"",
     passwort:"",
     _id:"",
-  }
-
-  );
+  });
 
   useEffect(() => {
     fetch('/users').then((res) => {
@@ -32,8 +30,8 @@ function Userlist({user, setUser, users, setUsers}) {
     console.log(`User with id ${id} deleted.`);
   }
 
-  function updateUser(id){
-    setOpenUpdate(true);
+  function openUpdateForm(id){
+    setOpenUpdate(true); 
     setUpdatedUser(prevInput => {
       return {
         ...prevInput, 
@@ -52,6 +50,25 @@ function Userlist({user, setUser, users, setUsers}) {
       });
       console.log(user);
     }
+
+    function updateUser(id){
+      axios.put('/put/' + id, updatedUser);
+      alert("User updated");
+      console.log(`User with id ${id} updated!`);
+    }
+
+    function handleUpdate(event){
+       const {name, value} = event.target; 
+      setUpdatedUser(prevInput => {
+        return(
+          {
+          ...prevInput,
+          [name]:value,
+          }
+        )
+      })
+      console.log(updatedUser)
+    }
       
     return (
         <div>
@@ -64,17 +81,17 @@ function Userlist({user, setUser, users, setUsers}) {
                   <p>E-mail:{user.email}</p>
                   <p>Passwort:{user.passwort}</p>
                   <button onClick = {() => deleteUser(user._id)}>DELETE</button>
-                  <button onClick = {() => updateUser(user._id)}>UPDATE</button>
+                  <button onClick = {() => openUpdateForm(user._id)}>UPDATE</button>
               </div>
             ))
             :
             <div key={user._id}> 
-                  <input onChange={handleChange} name="vorname" value={user.vorname} placeholder="Vorname"></input>
-                  <input onChange={handleChange} name="nachname" value={user.nachname} placeholder="Nachname"></input>
-                  <input onChange={handleChange} name="alter" value={user.alter} placeholder="Alter"></input>
-                  <input onChange={handleChange} name="email" value={user.email} placeholder="E-Mail"></input>
-                  <input onChange={handleChange} name="passwort" value={user.passwort} placeholder="Passwort"></input>
-                  <button onClick = {() => updateUser(user._id)}>UPDATE USER</button>
+                  <input onChange={handleUpdate} name="vorname" value={updatedUser.vorname} placeholder="Vorname"></input>
+                  <input onChange={handleUpdate} name="nachname" value={updatedUser.nachname} placeholder="Nachname"></input>
+                  <input onChange={handleUpdate} name="alter" value={updatedUser.alter} placeholder="Alter"></input>
+                  <input onChange={handleUpdate} name="email" value={updatedUser.email} placeholder="E-Mail"></input>
+                  <input onChange={handleUpdate} name="passwort" value={updatedUser.passwort} placeholder="Passwort"></input>
+                  <button onClick = {() => updateUser(updatedUser._id)}>UPDATE USER</button>
             </div>
           }
         </div>

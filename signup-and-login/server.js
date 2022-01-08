@@ -58,6 +58,24 @@ app.delete('/delete/:id', (req,res) => {
     } );
 })
 
+app.put('/put/:id', (req, res) => {
+    const id = req.params.id;
+    const updatedUser = {
+        vorname : req.body.vorname, 
+        nachname: req.body.nachname, 
+        alter: req.body.alter, 
+        email: req.body.email, 
+        passwort: req.body.passwort
+    }
+    User.findByIdAndUpdate({_id: id}, {$set: updatedUser}, (req, res, err) => {
+        if(!err){
+            console.log("Item updated!");
+        }else{
+            console.log(err);
+        }
+    })
+})
+
 app.listen(port, function(){
     console.log("Server is running");
 });
