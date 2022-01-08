@@ -2,17 +2,7 @@ import {useState} from 'react';
 import axios from 'axios';
 //import './Signup.css';
 
-function Signup() {
-    const [user, setUser] = useState(
-        {
-          vorname:"",
-          nachname:"",
-          alter:null,
-          email:"",
-          passwort:"",
-          _id:"",
-        }
-      )
+function Signup({user, setUser, users, setUsers}) {
 
       function handleChange(event){
         const {name,value} = event.target;
