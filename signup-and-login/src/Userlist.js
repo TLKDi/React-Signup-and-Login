@@ -40,21 +40,12 @@ function Userlist({user, setUser, users, setUsers}) {
     });
     }
 
-    function handleChange(event){
-      const {name,value} = event.target;
-      setUser(prevInput => {
-        return{
-          ...prevInput,
-          [name]:value,
-        };
-      });
-      console.log(user);
-    }
-
     function updateUser(id){
       axios.put('/put/' + id, updatedUser);
       alert("User updated");
       console.log(`User with id ${id} updated!`);
+      //reloading page to get back to userlist
+      window.location.reload(false);
     }
 
     function handleUpdate(event){

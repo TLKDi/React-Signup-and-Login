@@ -28,6 +28,9 @@ function App() {
       _id:"",
   }]
   )
+
+  const [redirect, setRedirect] = useState(false);
+
   return (
     <div className="App">
       <Switch>
@@ -35,7 +38,7 @@ function App() {
           <Signup user={user} setUser={setUser} users={users} setUsers={setUsers}/>
        </Route> 
        <Route path="/users">
-          <Userlist user={user} setUser={setUser} users={users} setUsers={setUsers}/>
+          <Userlist redirect={redirect} setRedirect={setRedirect} user={user} setUser={setUser} users={users} setUsers={setUsers}/>
         </Route> 
         
       </Switch>

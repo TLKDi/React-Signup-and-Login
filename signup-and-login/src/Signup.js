@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import axios from 'axios';
 //import './Signup.css';
 
@@ -35,7 +34,7 @@ function Signup({user, setUser, users, setUsers}) {
           <input onChange={handleChange} name="alter" value={user.alter} placeholder="Alter"></input>
           <input onChange={handleChange} name="email" value={user.email} placeholder="E-Mail"></input>
           <input onChange={handleChange} name="passwort" value={user.passwort} placeholder="Passwort"></input>
-          <button onClick={addUser}>ADD USER</button>      
+          <button onClick={addUser}>ADD USER</button>
         </div>
       );
 }
