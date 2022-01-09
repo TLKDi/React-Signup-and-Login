@@ -1,8 +1,11 @@
 import axios from 'axios';
+import validator from 'validator'
+import {useState} from 'react'
 //import './Signup.css';
 
 function Signup({user, setUser, users, setUsers}) {
-
+      const [emailError, setEmailError] = useState('')
+      
       function handleChange(event){
         const {name,value} = event.target;
         setUser(prevInput => {
@@ -13,6 +16,30 @@ function Signup({user, setUser, users, setUsers}) {
         });
         console.log(user);
       }
+   
+      const validateEmail = (e) => {
+        var email = e.target.value
+      
+        if (!validator.isEmail(email) & validator.isEmpty(email)) {
+          setEmailError('Please enter valid mail!')
+        } 
+      }
+      function handleChangeAndValidateEmail(event){
+        var e_mail = event.target.value
+        setUser(prevInput => {
+          return{
+            ...prevInput,
+            email:e_mail,
+          };
+        });
+        //console.log(user);
+        if (validator.isEmail(e_mail) || validator.isEmpty(e_mail)) {
+          setEmailError('');
+        } else {
+          setEmailError('Enter valid Email!');
+        }
+        } 
+      
     
       function addUser(event){
         event.preventDefault();
@@ -32,8 +59,10 @@ function Signup({user, setUser, users, setUsers}) {
           <input onChange={handleChange} name="vorname" value={user.vorname} placeholder="Vorname"></input>
           <input onChange={handleChange} name="nachname" value={user.nachname} placeholder="Nachname"></input>
           <input onChange={handleChange} name="alter" value={user.alter} placeholder="Alter"></input>
-          <input onChange={handleChange} name="email" value={user.email} placeholder="E-Mail"></input>
+          <input onChange={(e) => handleChangeAndValidateEmail(e)} name="email" value={user.email} placeholder="E-Mail"></input>
+          <span style={{fontWeight: 'bold', color: 'red'}}>{emailError}</span>
           <input onChange={handleChange} name="passwort" value={user.passwort} placeholder="Passwort"></input>
+        
           <button onClick={addUser}>ADD USER</button>
         </div>
       );

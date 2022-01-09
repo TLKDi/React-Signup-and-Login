@@ -2,7 +2,7 @@ import './App.css';
 import './Userlist.js';
 import Userlist from './Userlist.js';
 import Signup from './Signup.js';
-import Home from './Home.js';
+import Login from './Login.js';
 import {Route, Switch} from 'react-router-dom';
 import {useState} from 'react';
 
@@ -36,7 +36,7 @@ function App() {
     <div className="App">
       <Switch>
       <Route exact path="/">
-          <Home user={user} setUser={setUser} users={users} setUsers={setUsers}/>
+          <Login user={user} setUser={setUser} users={users} setUsers={setUsers}/>
        </Route> 
        <Route path="/users">
           <Userlist redirect={redirect} setRedirect={setRedirect} user={user} setUser={setUser} users={users} setUsers={setUsers}/>

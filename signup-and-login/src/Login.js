@@ -2,7 +2,7 @@ import axios from 'axios';
 //import './Login.css';
 import {Link} from 'react-router-dom';
 
-function Home({user, setUser}) {
+function Login({user, setUser}) {
 
     function handleChange(event){
       const {name,value} = event.target;
@@ -25,4 +25,4 @@ function Home({user, setUser}) {
     );
 }
 
-export default Home;
+export default Login;
