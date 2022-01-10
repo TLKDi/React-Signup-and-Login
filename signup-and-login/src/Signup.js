@@ -3,8 +3,9 @@ import validator from 'validator'
 import {useState} from 'react'
 //import './Signup.css';
 
-function Signup({user, setUser, users, setUsers}) {
-      const [emailError, setEmailError] = useState('')
+function Signup({user, setUser}) {
+      const [emailError, setEmailError] = useState('');
+      const [passwordError, setPasswordError] = useState('');
       
       function handleChange(event){
         const {name,value} = event.target;
@@ -32,8 +33,25 @@ function Signup({user, setUser, users, setUsers}) {
           setEmailError('Enter valid Email!');
         }
       } 
+
+      function handleChangeAndValidatePassword(event){
+        var password = event.target.value
+        setUser(prevInput => {
+          return{
+            ...prevInput,
+            passwort:password,
+          };
+        });
+        if (validator.isStrongPassword(password, {
+          minLength: 8, minLowercase: 1,
+          minUppercase: 1, minNumbers: 1, minSymbols: 1
+        }) || validator.isEmpty(password)) {
+          setPasswordError('')
+        } else {
+          setPasswordError('Passwort muss mind. 8 Zeichen, ein Sonderzeichen, eine Zahl und einen Großbuchstaben enthalten')
+        }
+      }
       
-    
       function addUser(event){
         event.preventDefault();
         const newUser = {
@@ -49,13 +67,15 @@ function Signup({user, setUser, users, setUsers}) {
     
       return (
         <div>
-          <input onChange={handleChange} name="vorname" value={user.vorname} placeholder="Vorname"></input>
-          <input onChange={handleChange} name="nachname" value={user.nachname} placeholder="Nachname"></input>
-          <input onChange={handleChange} name="alter" value={user.alter} placeholder="Alter"></input>
-          <input onChange={(e) => handleChangeAndValidateEmail(e)} name="email" value={user.email} placeholder="E-Mail"></input>
-          <span style={{fontWeight: 'bold', color: 'red'}}>{emailError}</span>
-          <input onChange={handleChange} name="passwort" value={user.passwort} placeholder="Passwort"></input>
-        
+          <form>
+            <input onChange={e => handleChange(e)} name="vorname" value={user.vorname} placeholder="Vorname"></input>
+            <input onChange={e => handleChange(e)} name="nachname" value={user.nachname} placeholder="Nachname"></input>
+            <input onChange={e => handleChange(e)} name="alter" value={user.alter} placeholder="Alter"></input>
+            <input onChange={(e) => handleChangeAndValidateEmail(e)} name="email" value={user.email} placeholder="E-Mail"></input>
+            <span style={{fontWeight: 'bold', color: 'red'}}>{emailError}</span>
+            <input onChange={(e) => handleChangeAndValidatePassword(e)} name="passwort" value={user.passwort} placeholder="Passwort"></input> 
+            <span style={{fontWeight: 'bold', color: 'red'}}>{passwordError}</span>
+          </form>
           <button onClick={addUser}>ADD USER</button>
         </div>
       );
