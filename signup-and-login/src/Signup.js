@@ -17,13 +17,6 @@ function Signup({user, setUser, users, setUsers}) {
         console.log(user);
       }
    
-      const validateEmail = (e) => {
-        var email = e.target.value
-      
-        if (!validator.isEmail(email) & validator.isEmpty(email)) {
-          setEmailError('Please enter valid mail!')
-        } 
-      }
       function handleChangeAndValidateEmail(event){
         var e_mail = event.target.value
         setUser(prevInput => {
@@ -38,7 +31,7 @@ function Signup({user, setUser, users, setUsers}) {
         } else {
           setEmailError('Enter valid Email!');
         }
-        } 
+      } 
       
     
       function addUser(event){
