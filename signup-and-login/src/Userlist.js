@@ -1,14 +1,15 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
+import Signup from './Signup.js';
 //import './Userlist.css';
 
-function Userlist({user, setUser, users, setUsers}) {
+function Userlist({user,setUser, users, setUsers, emailError, passwordError, openAdd, setOpenAdd}) {
   
   const [openUpdate, setOpenUpdate] = useState(false);
   const [updatedUser, setUpdatedUser] = useState({
     vorname:"",
     nachname:"",
-    alter:null,
+    alter:"",
     email:"",
     passwort:"",
     _id:"",
@@ -60,7 +61,11 @@ function Userlist({user, setUser, users, setUsers}) {
       })
       console.log(updatedUser)
     }
-      
+
+    function signupToggle(){
+      setOpenAdd(!openAdd);
+    }
+
     return (
         <div>
           {!openUpdate ? 
@@ -85,6 +90,19 @@ function Userlist({user, setUser, users, setUsers}) {
                   <button onClick = {() => updateUser(updatedUser._id)}>UPDATE USER</button>
             </div>
           }
+          <br/>
+          <div>
+            {openAdd ?
+            
+                <Signup  emailError={emailError}   
+                passwordError={passwordError}  
+                user={user} setUser={setUser}
+                users={users} setUsers={setUsers}>
+                </Signup>
+              :
+            <button onClick={signupToggle()}>NEW USER</button>
+            }
+          </div>
         </div>
     );
 }

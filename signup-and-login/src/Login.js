@@ -3,9 +3,7 @@ import {Link} from 'react-router-dom';
 import validator from 'validator'
 import {useState} from 'react'
 
-function Login({user, setUser}) {
-
-  const [emailError, setEmailError] = useState('');
+function Login({user, setUser, emailError, setEmailError}) {
 
     function handleChangeAndValidateEmail(event){
       var e_mail = event.target.value

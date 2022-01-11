@@ -30,7 +30,9 @@ function App() {
   }]
   )
 
-  const [redirect, setRedirect] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [openAdd, setOpenAdd] = useState(false);
 
   return (
     <div className="App">
@@ -39,10 +41,16 @@ function App() {
           <Login user={user} setUser={setUser} users={users} setUsers={setUsers}/>
        </Route> 
        <Route path="/users">
-          <Userlist redirect={redirect} setRedirect={setRedirect} user={user} setUser={setUser} users={users} setUsers={setUsers}/>
+          <Userlist emailError={emailError}  setEmailError={setEmailError} 
+          passwordError={passwordError}  setPasswordError={setPasswordError} 
+          user={user} setUser={setUser} users={users} setUsers={setUsers}
+          openAdd={openAdd} setOpenAdd={setOpenAdd}/>
         </Route> 
         <Route path="/signup">
-          <Signup redirect={redirect} setRedirect={setRedirect} user={user} setUser={setUser} users={users} setUsers={setUsers}/>
+          <Signup  emailError={emailError}  setEmailError={setEmailError} 
+          passwordError={passwordError}  setPasswordError={setPasswordError} 
+          user={user} setUser={setUser} users={users} setUsers={setUsers} 
+          openAdd={openAdd} setOpenAdd={setOpenAdd}/>
         </Route>
       </Switch>
     </div>
