@@ -1,54 +1,11 @@
 import axios from 'axios';
-import validator from 'validator'
+//import validator from 'validator'
+//import {useState} from 'react'
 import './Signup.css';
 
-function Signup({user, setUser, emailError, setEmailError, passwordError, setPasswordError, openAdd, setOpenAdd}) {
-      
-      function handleChange(event){
-        const {name,value} = event.target;
-        setUser(prevInput => {
-          return{
-            ...prevInput,
-            [name]:value,
-          };
-        });
-        console.log(user);
-      }
-   
-      function handleChangeAndValidateEmail(event){
-        var e_mail = event.target.value
-        setUser(prevInput => {
-          return{
-            ...prevInput,
-            email:e_mail,
-          };
-        });
-        //console.log(user);
-        if (validator.isEmail(e_mail) || validator.isEmpty(e_mail)) {
-          setEmailError('');
-        } else {
-          setEmailError('Enter valid Email!');
-        }
-      } 
+function Signup({user, setUser, emailError, passwordError, 
+  handleChangeAndValidatePassword, error, setError, handleChangeAndValidateEmail, handleChange}) {   
 
-      function handleChangeAndValidatePassword(event){
-        var password = event.target.value
-        setUser(prevInput => {
-          return{
-            ...prevInput,
-            passwort:password,
-          };
-        });
-        if (validator.isStrongPassword(password, {
-          minLength: 8, minLowercase: 1,
-          minUppercase: 1, minNumbers: 1, minSymbols: 1
-        }) || validator.isEmpty(password)) {
-          setPasswordError('')
-        } else {
-          setPasswordError('Passwort muss mind. 8 Zeichen, ein Sonderzeichen, eine Zahl und einen Großbuchstaben enthalten')
-        }
-      }
-      
       function addUser(event){
         event.preventDefault();
         const newUser = {
@@ -59,19 +16,20 @@ function Signup({user, setUser, emailError, setEmailError, passwordError, setPas
           passwort : user.passwort,
         }
         console.log(newUser);
-        axios.post('/newUser',newUser);
-        setUser(
-          {
-            vorname : "",
-            nachname : "",
-            alter : "",
-            email : "",
-            passwort : "",
-          }
-        );
-        setOpenAdd(!openAdd);
+          axios.post('/newUser',newUser)
+          .then(
+            setUser(
+              {
+                vorname : "",
+                nachname : "",
+                alter : "",
+                email : "",
+                passwort : "",
+              }
+            )
+          ).catch(errorMsg => setError(errorMsg));
       }
-    
+          
       return (
         <div>
           <form>
@@ -84,6 +42,7 @@ function Signup({user, setUser, emailError, setEmailError, passwordError, setPas
             <span style={{fontWeight: 'bold', color: 'red'}}>{passwordError}</span>
           </form>
           <button onClick={addUser}>ADD USER</button>
+          <h1>{error}</h1>
         </div>
       );
 }

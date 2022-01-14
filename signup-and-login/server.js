@@ -33,7 +33,11 @@ app.get('/users', (req, res) => {
     .catch(err => res.status(400).json("Error: " + err));
 });
 
-app.post('/newUser', (req,res) => {
+app.post('/newUser', async (req,res) => {
+    const userExists = await User.exists({ email: req.body.email });
+    if (userExists){
+        res.status(400).json('Nutzer existiert bereits. Bitte nutzen Sie eine andere E-mail!');
+    }else{ 
     const newUser = new User({
         vorname : req.body.vorname, 
         nachname: req.body.nachname, 
@@ -43,9 +47,8 @@ app.post('/newUser', (req,res) => {
     });
     newUser.save()
     .then((item) => console.log(item))
-    .catch(err => res.status(400).json("Error: " + err));
-
-});
+    .catch(err => res.status(400).statusMessage("Error: " + err));
+    }});
 
 app.delete('/delete/:id', (req,res) => {
     const id = req.params.id;
@@ -58,22 +61,27 @@ app.delete('/delete/:id', (req,res) => {
     } );
 })
 
-app.put('/put/:id', (req, res) => {
-    const id = req.params.id;
-    const updatedUser = {
-        vorname : req.body.vorname, 
-        nachname: req.body.nachname, 
-        alter: req.body.alter, 
-        email: req.body.email, 
-        passwort: req.body.passwort
-    }
-    User.findByIdAndUpdate({_id: id}, {$set: updatedUser}, (req, res, err) => {
-        if(!err){
-            console.log("Item updated!");
-        }else{
-            console.log(err);
+app.put('/put/:id', async (req, res) => {
+    const userExists = await User.exists({ email: req.body.email });
+    if (userExists){
+        res.status(400).json('Nutzer existiert bereits. Bitte nutzen Sie eine andere E-mail!');
+    }else{ 
+        const id = req.params.id;
+        const updatedUser = {
+            vorname : req.body.vorname, 
+            nachname: req.body.nachname, 
+            alter: req.body.alter, 
+            email: req.body.email, 
+            passwort: req.body.passwort
         }
-    })
+        User.findByIdAndUpdate({_id: id}, {$set: updatedUser}, (req, res, err) => {
+            if(!err){
+                console.log("Item updated!");
+            }else{
+                console.log(err);
+            }
+        })
+    }
 })
 
 app.listen(port, function(){
