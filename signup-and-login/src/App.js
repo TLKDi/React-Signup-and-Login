@@ -3,7 +3,7 @@ import './Userlist.js';
 import Userlist from './Userlist.js';
 import Signup from './Signup.js';
 import Login from './Login.js';
-import {Route, Switch} from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import {useState} from 'react';
 import validator from 'validator'
 
@@ -75,7 +75,7 @@ function App() {
     if (validator.isEmail(e_mail) || validator.isEmpty(e_mail)) {
       setEmailError('');
     } else {
-      setEmailError('Enter valid Email!');
+      setEmailError('Bitte eine korrekte E-Mailadresse einfügen!');
     }
   } 
 
@@ -143,7 +143,13 @@ function App() {
     <div className="App">
       <Switch>
       <Route exact path="/">
-          <Login user={user} setUser={setUser} users={users} setUsers={setUsers}/>
+          <Redirect to="/login"/>
+       </Route>
+      <Route path="/login">
+          <Login emailError={emailError} setEmailError={setEmailError} 
+          passwordError = {passwordError} setPasswordError={setPasswordError}
+          handleChangeAndValidatePassword={handleChangeAndValidatePassword}
+          handleChangeAndValidateEmail={handleChangeAndValidateEmail}/>
        </Route> 
        <Route path="/users">
           <Userlist error={error}  setError={setError} emailError={emailError}  setEmailError={setEmailError} 
