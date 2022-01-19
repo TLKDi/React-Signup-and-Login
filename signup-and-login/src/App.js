@@ -152,12 +152,12 @@ function App() {
           handleChangeAndValidateEmail={handleChangeAndValidateEmail}/>
        </Route> 
        <Route path="/users">
-          <Userlist error={error}  setError={setError} emailError={emailError}  setEmailError={setEmailError} 
-          passwordError={passwordError}  setPasswordError={setPasswordError} 
-          user={user} setUser={setUser} users={users} setUsers={setUsers}
-          handleUpdateAndValidatePassword={handleUpdateAndValidatePassword}
-          handleUpdateAndValidateEmail={handleUpdateAndValidateEmail} handleUpdate={handleUpdate} 
-          updatedUser={updatedUser} setUpdatedUser={setUpdatedUser}/>
+          <Userlist user={user} users={users} setUser={setUser} setUsers={setUsers}
+           updatedUser={updatedUser} setUpdatedUser={setUpdatedUser} emailError={emailError}
+           passwordError={passwordError} handleUpdateAndValidatePassword={handleUpdateAndValidatePassword} 
+           error={error} setError={setError} handleUpdateAndValidateEmail={handleUpdateAndValidateEmail} 
+           handleUpdate={handleUpdate} handleChangeAndValidateEmail={handleChangeAndValidateEmail}
+           handleChangeAndValidatePassword={handleChangeAndValidatePassword} handleChange={handleChange}/>
         </Route> 
         <Route path="/signup">
           <Signup  error={error}  setError={setError} emailError={emailError}  setEmailError={setEmailError} 

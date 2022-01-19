@@ -7,7 +7,7 @@ const port = 3001;
 //config
 app.use(cors());
 app.use(express.json());
-//app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: false}));
 
 //db connection
 mongoose.connect("mongodb+srv://tarik-admin:aEdumaztV1CazT1O@cluster0.qqzjw.mongodb.net/usersDB?retryWrites=true&w=majority")

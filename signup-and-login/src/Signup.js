@@ -41,7 +41,7 @@ function Signup({user, setUser, emailError, passwordError,
             <input onChange={(e) => handleChangeAndValidatePassword(e)} name="passwort" value={user.passwort} placeholder="Passwort"></input> 
             <span style={{fontWeight: 'bold', color: 'red'}}>{passwordError}</span>
           </form>
-          <button onClick={addUser}>ADD USER</button>
+          <button onClick={addUser}>SIGNUP</button>
           <h1>{error}</h1>
         </div>
       );
